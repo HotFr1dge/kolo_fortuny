@@ -3,11 +3,16 @@
   --letters-radius: 1rem;
   --letters-border-width: 4px;
   --letters-border-color: 0, 0, 0;
+  --category-fs: 3rem;
+  --letter-space-bg: #347deb;
+  --category-border-color: #347deb;
+  --category-border-width: 4px;
 }
 
 .app {
   height: 100svh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -43,9 +48,17 @@
 
 .letter.space {
   color: transparent;
-  background: #347deb;
+  background: var(--letter-space-bg);
 }
 
 .letter.enabled .content {
   opacity: 1;
+}
+
+.category {
+  line-height: 1.2;
+  border-radius: 42px / 50%;
+  font-size: var(--category-fs);
+  border: var(--category-border-width) solid var(--category-border-color);
+  padding: 0.5rem 2rem;
 }

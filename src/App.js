@@ -9,8 +9,9 @@ function App() {
 
   const passwords = [
     {password: 'KTO POD KIM DOŁKI KOPIE TEN WPADA', category: 'POWIEDZENIE'}
-  ]; // TODO - zrobić żeby działało dla takiego obiektu
+  ]; // TODO - zrobić żeby działaó dla takiego obiektu
 
+  // TODO - dodać okrywanie całego hasła za pomocą jakiegoś skrótu klawiaturowego
   // TODO - usunąć spacje jesli elment jest ostatnim elementem w wierszu
 
   return (
@@ -22,6 +23,9 @@ function App() {
             return <Word key={index} word={word} />
           })
         }
+      </div>
+      <div className="category">
+          POWIEDZENIE
       </div>
 
     </div>
