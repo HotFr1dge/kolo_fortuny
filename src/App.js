@@ -7,6 +7,10 @@ function App() {
   const password = 'KTO POD KIM DOŁKI KOPIE TEN WPADA';
   const words = password.split(' ');
 
+  const passwords = [
+    {password: 'KTO POD KIM DOŁKI KOPIE TEN WPADA', category: 'POWIEDZENIE'}
+  ]; // TODO - zrobić żeby działało dla takiego obiektu
+
   // TODO - usunąć spacje jesli elment jest ostatnim elementem w wierszu
 
   return (
