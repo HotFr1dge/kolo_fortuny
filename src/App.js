@@ -13,6 +13,12 @@ function App() {
 
   // TODO - dodać okrywanie całego hasła za pomocą jakiegoś skrótu klawiaturowego
   // TODO - usunąć spacje jesli elment jest ostatnim elementem w wierszu
+  // TODO - poprwaić DESIGN
+  // TODO - dodac informacje o punktach 
+  // TODO - dodać dodawanie punktów użytkownikom za pomocą skrótów klawiszowych 
+  // np. Shift + 1 - wybranie pierwszego uczestnika
+  // następnie wpisujemy liczbę punktów do dodania
+  // esc - wyjście z trybu wprowadzania punktów
 
   return (
     <div className="app">
