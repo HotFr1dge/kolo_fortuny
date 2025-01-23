@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import './App.css';
 
 import Password from './components/Password.js';
@@ -7,28 +7,32 @@ function App() {
 
   const [currentPasswordIndex, setCurrentPasswordIndex] = useState(0);
   const [revealedLetters, setRevealedLetters] = useState([]);
+  const [selectedLetter, setSelectedLetter] = useState(false);
 
-  const passwords = [
-    { password: 'KTO POD KIM DOŁKI KOPIE TEN WPADA', category: 'POWIEDZENIE' }
-  ];
+  const passwords = useMemo(
+    () => [
+      { password: "KTO POD KIM DOŁKI KOPIE TEN WPADA", category: "POWIEDZENIE" },
+    ],
+    []
+  );
 
   useEffect(() => {
 
     const handleKeyDown = (event) => {
 
+      const pressedLetter = event.key.toUpperCase();
+      const currentPassword = passwords[currentPasswordIndex].password;
+
       // obłsuga tylko pojedyńczego wciśniecia
       if (!event.repeat) {
 
-        const pressedLetter = event.key.toUpperCase();
-        const currentPassword = passwords[currentPasswordIndex].password;
-
-        if (/^[A-ZĄĆĘŁŃÓŚŹŻ]$/.test(pressedLetter)) {
+        if (/^[A-ZĄĆĘŁŃÓŚŹŻ]$/.test(pressedLetter) && !selectedLetter) {
 
           if (currentPassword.includes(pressedLetter)) {
 
             console.log(`Odkryto literę: ${pressedLetter}`);
-            setRevealedLetters((prev) => [...prev, pressedLetter]);
-
+            setSelectedLetter(pressedLetter);
+    
           }
           else {
             console.log('Pudło!');
@@ -50,7 +54,16 @@ function App() {
           console.log('Wciśnięto coś innego');
         }
 
+      } else {
 
+        if (pressedLetter === ' ' && /^[A-ZĄĆĘŁŃÓŚŹŻ]$/.test(selectedLetter)) {
+          setRevealedLetters((prev) => [...prev, selectedLetter]);
+          setSelectedLetter(false);
+        }
+
+        if (pressedLetter === 'ENTER') {
+          console.log('Odryj całość.');
+        }
 
       }
 
@@ -58,14 +71,17 @@ function App() {
 
     window.addEventListener("keydown", handleKeyDown);
 
+    console.log(selectedLetter);
+    console.log(revealedLetters);
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [currentPasswordIndex, revealedLetters, passwords]);
+  }, [currentPasswordIndex, revealedLetters, passwords, selectedLetter]);
 
   return (
     <div className="app">
-      <Password password={passwords[currentPasswordIndex].password} revealedLetters={revealedLetters} />
+      <Password password={passwords[currentPasswordIndex].password} revealedLetters={revealedLetters} selectedLetter={selectedLetter} />
 
       <div className="category">
           {passwords[currentPasswordIndex].category}

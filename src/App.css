@@ -9,7 +9,7 @@
   --category-border-width: 4px;
 }
 
-body {
+* {
   transition: all 0.5s ease;
 }
 
@@ -48,6 +48,10 @@ body.failed {
   padding: 8px 16px;
   border-radius: var(--letters-radius);
   box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 1);
+}
+
+.letter.selected {
+  background-color: green;
 }
 
 .letter .content {

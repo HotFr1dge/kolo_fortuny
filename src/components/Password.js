@@ -1,6 +1,6 @@
 import Word from "./Word.js";
 
-export default function Password({ password }) {
+export default function Password({ password, revealedLetters, selectedLetter }) {
 
     const words = password.split(' ');
 
@@ -8,7 +8,7 @@ export default function Password({ password }) {
       <div className="wrapper">
         {
           words.map((word, index) => {
-            return <Word key={index} word={word} />
+            return <Word key={index} word={word} revealedLetters={revealedLetters} selectedLetter={selectedLetter} />
           })
         }
       </div>

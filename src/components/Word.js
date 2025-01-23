@@ -1,6 +1,6 @@
 import Letter from "./Letter.js";
 
-export default function Word({ word }) {
+export default function Word({ word, revealedLetters, selectedLetter }) {
 
     const letters = word.toUpperCase().split('');
 
@@ -8,7 +8,7 @@ export default function Word({ word }) {
         <div className='word'>
             {
                 letters.map((letter, index) => {
-                    return  <Letter key={index} letter={letter} />
+                    return  <Letter key={index} letter={letter} revealedLetters={revealedLetters} selectedLetter={selectedLetter} />
                 })
             }
             <Letter space={true} letter={'_'} />
