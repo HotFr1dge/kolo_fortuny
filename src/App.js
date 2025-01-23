@@ -1,37 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
-import Word from './components/Word.js';
+import Password from './components/Password.js';
 
 function App() {
-  const password = 'KTO POD KIM DOŁKI KOPIE TEN WPADA';
-  const words = password.split(' ');
+
+  const [currentPassword, setCurrentPassword] = useState(0);
 
   const passwords = [
-    {password: 'KTO POD KIM DOŁKI KOPIE TEN WPADA', category: 'POWIEDZENIE'}
-  ]; // TODO - zrobić żeby działaó dla takiego obiektu
+    { password: 'KTO POD KIM DOŁKI KOPIE TEN WPADA', category: 'POWIEDZENIE' }
+  ];
 
-  // TODO - dodać okrywanie całego hasła za pomocą jakiegoś skrótu klawiaturowego
-  // TODO - usunąć spacje jesli elment jest ostatnim elementem w wierszu
-  // TODO - poprwaić DESIGN
-  // TODO - dodac informacje o punktach 
-  // TODO - dodać dodawanie punktów użytkownikom za pomocą skrótów klawiszowych 
-  // np. Shift + 1 - wybranie pierwszego uczestnika
-  // następnie wpisujemy liczbę punktów do dodania
-  // esc - wyjście z trybu wprowadzania punktów
+  useEffect(() => {
+
+  }, []);
 
   return (
     <div className="app">
+      <Password password={passwords[currentPassword].password} />
 
-      <div className="wrapper">
-        {
-          words.map((word, index) => {
-            return <Word key={index} word={word} />
-          })
-        }
-      </div>
       <div className="category">
-          POWIEDZENIE
+          {passwords[currentPassword].category}
       </div>
 
     </div>
