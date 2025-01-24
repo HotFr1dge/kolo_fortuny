@@ -33,6 +33,7 @@ function App() {
       const currentPassword = passwords[currentPasswordIndex].password;
       const multipler = currentPassword.split('').filter(char => char === pressedLetter).length
       const shift = event.shiftKey;
+      const lettersToGuess = [...new Set(currentPassword.replaceAll(' ', '').split(''))];
 
       if (pressedLetter === 'CAPSLOCK' && !selectedLetter) {
 
@@ -67,12 +68,11 @@ function App() {
           const audio = new Audio('letter_ok.mp3');
           audio.play();
 
-          setRevealedLetters((prev) => [...prev, selectedLetter]);
           setSelectedLetter(pressedLetter);
 
           const updatedPoints = userPoints;
           if (isSamogloska) {
-            updatedPoints[currentPlayerId] -= 300;
+            updatedPoints[currentPlayerId] -= 500;
           } 
           else {
             updatedPoints[currentPlayerId] += Number(pointsToEarn) * multipler;
@@ -101,6 +101,10 @@ function App() {
 
           const audio = new Audio('./reveal.mp3');
           audio.play();
+
+
+          console.log(lettersToGuess);
+          console.log(revealedLetters);
 
       }
       else if (shift && pressedLetter === ' ') {
