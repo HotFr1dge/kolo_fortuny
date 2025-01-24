@@ -56,7 +56,7 @@ function App() {
 
      }
      
-     if (isLetter) {
+     if (isLetter && !selectedLetter) {
 
         if (revealedLetters.includes(pressedLetter)) {
 
