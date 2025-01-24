@@ -34,7 +34,7 @@ function App() {
       const multipler = currentPassword.split('').filter(char => char === pressedLetter).length
       const shift = event.shiftKey;
 
-      if (pressedLetter === 'CAPSLOCK') {
+      if (pressedLetter === 'CAPSLOCK' && !selectedLetter) {
 
         if (pointsMode === false) {
           setPointsToEarn('');
@@ -42,21 +42,16 @@ function App() {
 
         setPointsMode((prev) => !prev);
 
-        console.log('tryb wprowadzania');
+        console.log('Tryb wprowadzania: ' + !pointsMode);
 
       }
 
-     if (pointsMode === true) {
-
-
-        if (isNumber)
-          setPointsToEarn((prev) => prev.toString() + pressedLetter);
-
-        return console.log('tryb wprowadzania: ' + pressedLetter);
-
+     if (pointsMode === true && isNumber && !selectedLetter) {
+        setPointsToEarn((prev) => prev.toString() + pressedLetter);
+        return console.log('Tryb wprowadzania: ' + pressedLetter);
      }
      
-     if (isLetter && !selectedLetter) {
+     if (isLetter && !selectedLetter && pointsToEarn > 0) {
 
         if (revealedLetters.includes(pressedLetter)) {
 
@@ -96,12 +91,13 @@ function App() {
           }, 1500)
 
         }
-
+        setPointsToEarn(0);
       } 
       else if (pressedLetter === ' ' && selectedLetter) {
 
           setRevealedLetters((prev) => [...prev, selectedLetter]);
           setSelectedLetter(false);
+          setPointsToEarn(0);
 
           const audio = new Audio('./reveal.mp3');
           audio.play();
@@ -153,6 +149,11 @@ function App() {
         <div className={`points-player ${currentPlayerId === 3 ? 'active' : ''}`}>
           {Number(userPoints[3])}
         </div>
+      </div>
+
+      <div>
+        Naciśnij CAPSLOCK i wprowadź liczbę punktów do zdobycia. <br />
+        Do zdobycia: {pointsToEarn}
       </div>
 
     </div>
