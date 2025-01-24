@@ -31,6 +31,7 @@ function App() {
       const isNumber = /^[0-9]$/.test(pressedLetter);
       const isSamogloska = /^[AEIOUYĄĘÓ]$/.test(pressedLetter);
       const currentPassword = passwords[currentPasswordIndex].password;
+      const multipler = currentPassword.split('').filter(char => char === pressedLetter).length
       const shift = event.shiftKey;
 
       if (pressedLetter === 'CAPSLOCK') {
@@ -79,7 +80,7 @@ function App() {
             updatedPoints[currentPlayerId] -= 300;
           } 
           else {
-            updatedPoints[currentPlayerId] += Number(pointsToEarn);
+            updatedPoints[currentPlayerId] += Number(pointsToEarn) * multipler;
           }
           setUserPoints(updatedPoints);
 
