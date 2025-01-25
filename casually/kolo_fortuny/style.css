@@ -9,16 +9,20 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 .category {
   background-color: white;
   border: solid 2px black;
   border-radius: 15px;
-  position: fixed;
-  bottom: 50px;
 }
-.category span {
+.money {
+  background-color: white;
+  border: solid 2px black;
+  border-radius: 15px;
+}
+.category span,
+.money span {
   font-size: 65px;
   margin: 50px;
   font-family: "Roboto", serif;
@@ -33,7 +37,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 100px;
 }
 .letter {
   width: 100px;
@@ -54,6 +58,8 @@ body {
 .break {
   background-color: #0066b2;
   border: solid 0px;
+  width: 0;
+  height: 0;
 }
 .letter span {
   font-size: 50px;
@@ -64,4 +70,11 @@ body {
 }
 .incorrect {
   background-color: #ff0028;
+}
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
