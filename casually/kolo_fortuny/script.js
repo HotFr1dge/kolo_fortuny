@@ -1,19 +1,51 @@
 //TODO:
 //Dodać dźwięki
 let Arraykey = [];
+
+let pointsArray = [0, 0, 0, 0];
+playerID = 0;
+class Points {
+  constructor() {}
+  createObject() {
+    const lengthPlayer = 4;
+    let divElement = Object.assign(document.createElement("div"), { className: "pointsRow" });
+    for (let i = 0; i < lengthPlayer; i++) {
+      let moneyElement = Object.assign(document.createElement("div"), { className: "money" });
+      let spanElement = Object.assign(document.createElement("span"), { textContent: pointsArray[i] });
+      divElement.appendChild(moneyElement);
+      moneyElement.appendChild(spanElement);
+    }
+    document.body.appendChild(divElement);
+  }
+  setActive(id) {
+    if (document.querySelector(".active")) {
+      document.querySelector(".active").classList.remove("active");
+    }
+    document.querySelectorAll(".money")[id].classList.add("active");
+  }
+  changePoints(points, id) {
+    if (points == "b") {
+      document.querySelector(".active span").innerHTML = 0;
+    } else {
+      pointsArray[id] = parseInt(document.querySelector(".active span").innerHTML) + parseInt(points);
+      document.querySelector(".active span").innerHTML = pointsArray[id];
+    }
+  }
+}
+
 function newGame() {
+  console.log(pointsArray);
+  new Points().createObject();
+  new Points().setActive(playerID);
   Arraykey.length = 0;
   const wrapElement = Object.assign(document.createElement("div"), { className: "wrap" });
   const categoryElement = Object.assign(document.createElement("div"), { className: "category" });
-  const moneyElement = Object.assign(document.createElement("div"), { className: "money" });
-  const spanElement = Object.assign(document.createElement("span"), { textContent: "0" });
-  moneyElement.appendChild(spanElement);
-  document.body.appendChild(moneyElement);
+
   document.body.appendChild(wrapElement);
   document.body.appendChild(categoryElement);
 }
 newGame();
-function changeValueMoney(key) {}
+
 class Word {
   constructor(letter, num) {
     this.letter = letter;
@@ -58,6 +90,7 @@ class Category {
     categoryElement.appendChild(spanElement);
   }
 }
+
 async function fetchPassword(id) {
   const wrapElement = document.querySelector(".wrap");
   await fetch("passwords.json")
@@ -122,9 +155,16 @@ document.addEventListener("keydown", function (event) {
           setTimeout(function () {
             document.body.classList.remove("incorrect");
           }, 800);
+          const vowels = "aęeiouóy";
+          if (vowels.includes(event.key)) new Points().changePoints(-200, playerID);
+          playerID++;
+          if (playerID >= pointsArray.length) {
+            playerID = 0;
+          }
+          new Points().setActive(playerID);
         } else {
           writing = false;
-          changeToCorrect(filteredDivs);
+          changeToCorrect(filteredDivs, event.key);
         }
       }
     }
@@ -135,9 +175,17 @@ document.addEventListener("keyup", function () {
   isKeyProcessed = false;
 });
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-async function changeToCorrect(divs) {
+async function changeToCorrect(divs, letter) {
+  let valuePoints = 0;
+  const vowels = "aęeiouóy";
+  if (vowels.includes(letter)) {
+    new Points().changePoints(-200, playerID);
+  } else {
+    valuePoints = prompt("Podaj ile punktów jest do zdobycia");
+  }
   for (const div of divs) {
     div.classList.add("correct");
+    if (!vowels.includes(letter)) new Points().changePoints(valuePoints, playerID);
     if (divs.length > 1) await sleep(400);
   }
   writing = true;

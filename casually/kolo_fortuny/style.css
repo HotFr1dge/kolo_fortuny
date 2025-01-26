@@ -18,9 +18,47 @@ body {
 }
 .money {
   background-color: white;
-  border: solid 2px black;
   border-radius: 15px;
 }
+.money:nth-child(1) {
+  border: solid 4px #ff6666;
+}
+.money:nth-child(2) {
+  border: solid 4px #9de24f;
+}
+.money:nth-child(3) {
+  border: solid 4px #ffbd55;
+}
+.money:nth-child(4) {
+  border: solid 4px #87cefa;
+}
+
+.active:nth-child(1) {
+  background-color: #ff6666 !important;
+}
+.active:nth-child(2) {
+  background-color: #9de24f !important;
+}
+.active:nth-child(3) {
+  background-color: #ffbd55 !important;
+}
+.active:nth-child(4) {
+  background-color: #87cefa !important;
+}
+
+.active:nth-child(1) span {
+  color: white !important;
+}
+.active:nth-child(2) span {
+  color: white !important;
+}
+.active:nth-child(3) span {
+  color: white !important;
+}
+.active:nth-child(4) span {
+  color: white !important;
+}
+
 .category span,
 .money span {
   font-size: 65px;
@@ -77,4 +115,11 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+}
+.pointsRow {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  gap: 20px;
+  width: 100%;
 }
