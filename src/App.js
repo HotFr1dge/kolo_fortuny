@@ -16,7 +16,30 @@ function App() {
 
   const passwords = useMemo(
     () => [
-      { password: "KTO POD KIM DOŁKI KOPIE TEN WPADA", category: "POWIEDZENIE" },
+      { password: "ŚPIĄCA KRÓLEWNA", category: "BAJKI I BAŚNIE" },
+      { password: "KTO PYTA, NIE BŁĄDZI", category: "PRZYSŁOWIE" },
+      { password: "O WILKU MOWA", category: "PRZYSŁOWIE" },
+      { password: "CO NAGLE, TO PO DIABLE", category: "PRZYSŁOWIE" },
+      { password: "BEZ PRACY NIE MA KOŁACZY", category: "PRZYSŁOWIE" },
+      { password: "DO WESELA SIĘ ZAGOI", category: "PRZYSŁOWIE" },
+      { password: "KTO POD KIM DOŁKI KOPIE SAM W NIE WPADA", category: "PRZYSŁOWIE" },
+      { password: "SKAZANI NA SHAWSHANK", category: "FILM" },
+      { password: "ZIELONA MILA", category: "FILM" },
+      { password: "LALKA", category: "LITERATURA" },
+      { password: "WESELE", category: "LITERATURA" },
+      { password: "DZIADY", category: "LITERATURA" },
+      { password: "INNY ŚWIAT", category: "LITERATURA" },
+      { password: "ZDĄŻYĆ PRZED PANEM BOGIEM", category: "LITERATURA" },
+      { password: "ZBRODNIA I KARA", category: "LITERATURA" },
+      { password: "BITWA POD GRUNWALDEM", category: "HISTORIA" },
+      { password: "CHRZEST POLSKI", category: "HISTORIA" },
+      { password: "ROSZPUNKA", category: "BAJKI I BAŚNIE" },
+      { password: "OJCIEC CHRZESTNY", category: "FILM" },
+      { password: "KRÓLEWNA ŚNIEŻKA", category: "BAJKI I BAŚNIE" },
+      { password: "PULP FICTION", category: "FILM" },
+      { password: "PIANISTA", category: "FILM" },
+      { password: "KOŃ TROJAŃSKI", category: "MITOLOGIA" },
+      { password: "PUSZKA PANDORY", category: "MITOLOGIA" }
     ],
     []
   );
@@ -25,6 +48,8 @@ function App() {
 
     const handleKeyDown = (event) => {
       if (event.repeat) return;
+
+      // console.log(event);
 
       const pressedLetter = event.key.toUpperCase();
       const isLetter = /^[A-ZĄĆĘŁŃÓŚŹŻ]$/.test(pressedLetter);
@@ -52,7 +77,7 @@ function App() {
         return console.log('Tryb wprowadzania: ' + pressedLetter);
      }
      
-     if (isLetter && !selectedLetter && pointsToEarn > 0) {
+     if (isLetter && !selectedLetter) {
 
         if (revealedLetters.includes(pressedLetter)) {
 
@@ -72,7 +97,7 @@ function App() {
 
           const updatedPoints = userPoints;
           if (isSamogloska) {
-            updatedPoints[currentPlayerId] -= 500;
+            updatedPoints[currentPlayerId] -= 200;
           } 
           else {
             updatedPoints[currentPlayerId] += Number(pointsToEarn) * multipler;
@@ -91,13 +116,13 @@ function App() {
           }, 1500)
 
         }
-        setPointsToEarn(0);
+        // setPointsToEarn(0);
       } 
       else if (pressedLetter === ' ' && selectedLetter) {
 
           setRevealedLetters((prev) => [...prev, selectedLetter]);
           setSelectedLetter(false);
-          setPointsToEarn(0);
+          //setPointsToEarn(0);
 
           const audio = new Audio('./reveal.mp3');
           audio.play();
@@ -116,6 +141,20 @@ function App() {
 
         console.log('Odryj całość.');
 
+      }
+      else if (shift && pressedLetter === 'ARROWRIGHT') {
+
+        if (currentPasswordIndex + 1 < passwords.length) {
+          setCurrentPasswordIndex((prev) => prev + 1);
+        }
+        
+      }
+      else if (shift && pressedLetter === 'ARROWLEFT') {
+
+        if (currentPasswordIndex - 1 >= 0) {
+          setCurrentPasswordIndex((prev) => prev - 1);
+        }
+        
       }
 
     };
@@ -155,9 +194,8 @@ function App() {
         </div>
       </div>
 
-      <div>
-        Naciśnij CAPSLOCK i wprowadź liczbę punktów do zdobycia. <br />
-        Do zdobycia: {pointsToEarn}
+      <div style={{ fontSize: 24 }}>
+        Punkty do zdobycia: {pointsToEarn}
       </div>
 
     </div>

@@ -20,7 +20,7 @@ export default function Letter({ letter, space = false, revealedLetters = [], se
 
   return (
     <div
-      className={`letter ${space ? 'space' : ''} ${isSelected ? 'selected' : ''} ${isRevealed ? 'revealed' : ''}`}
+      className={`letter ${space ? 'space' : ''} ${isSelected ? 'selected' : ''} ${isRevealed || letter === ',' ? 'revealed' : ''}`}
     >
         <span className="content">
             {letter}
